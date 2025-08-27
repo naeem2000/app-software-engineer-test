@@ -8,6 +8,7 @@
   --dark-button-hover: #226280;
   --border: #D5D5D5;
   --black: #333333;
+  --grey: #657478;
 }
 
 * {
@@ -21,8 +22,11 @@
 .max-width {
   max-width: 1080px;
   margin: 0 auto;
-  padding-left: 20px;
-  padding-right: 20px;
+
+  @media screen and (max-width: 1120px) {
+    padding-left: 20px;
+    padding-right: 20px;
+  }
 }
 
 img {

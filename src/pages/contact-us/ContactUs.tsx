@@ -1,3 +1,10 @@
+import Nav from '../../stories/Nav';
+
 export default function ContactUs() {
-	return <main>ContactUs</main>;
+	return (
+		<main>
+			<Nav />
+			ContactUs
+		</main>
+	);
 }

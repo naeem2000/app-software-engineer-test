@@ -2,7 +2,8 @@ nav {
     border-bottom: 1px solid var(--border);
 
     .max-width {
-        padding: 16px 0px 12px;
+        padding-top: 16px;
+        padding-bottom: 12px;
         display: flex;
         justify-content: space-between;
         align-items: center;
@@ -42,7 +43,7 @@ nav {
 
     @media screen and (max-width: 1080px) {
         .max-width {
-            padding: 15px 20px 12px;
+            padding-bottom: 12px !important;
         }
     }
 
