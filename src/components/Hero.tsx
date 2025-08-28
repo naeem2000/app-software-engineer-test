@@ -1,12 +1,13 @@
-import './homeStyles.scss';
-import { Swiper, SwiperSlide } from 'swiper/react';
 import { Autoplay, Navigation, Pagination } from 'swiper/modules';
-import 'swiper/css/navigation';
-import 'swiper/css/pagination';
-import 'swiper/css';
-import Button from '../stories/Button';
-import { Link } from 'react-router-dom';
+import { Swiper, SwiperSlide } from 'swiper/react';
 import { routes } from '../utils/routes';
+import { Link } from 'react-router-dom';
+import Button from '../stories/Button';
+import 'swiper/css/pagination';
+import 'swiper/css/navigation';
+import './homeStyles.scss';
+import 'swiper/css';
+
 export default function Hero() {
 	return (
 		<section className='hero'>
