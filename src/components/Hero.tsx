@@ -3,12 +3,34 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import { routes } from '../utils/routes';
 import { Link } from 'react-router-dom';
 import Button from '../stories/Button';
+import { useCallback, useEffect, useState } from 'react';
 import 'swiper/css/pagination';
 import 'swiper/css/navigation';
 import './homeStyles.scss';
 import 'swiper/css';
+import { BannerData } from '../types';
+import { ClipLoader } from 'react-spinners';
+import { getBannerData } from '../utils/api';
 
 export default function Hero() {
+	const [bannerData, setBannerData] = useState<BannerData[]>([]);
+	const [isLoading, setIsLoading] = useState<boolean>(true);
+
+	const fetchBannerData = useCallback(async () => {
+		try {
+			const bannerRequest = await getBannerData();
+			setBannerData(bannerRequest);
+			setIsLoading(false);
+		} catch (e) {
+			setIsLoading(false);
+			console.error(e);
+		}
+	}, []);
+
+	useEffect(() => {
+		fetchBannerData();
+	}, [fetchBannerData]);
+
 	return (
 		<section className='hero'>
 			<Swiper
@@ -19,22 +41,29 @@ export default function Hero() {
 				pagination={{ clickable: true }}
 				className='swiper-container'
 			>
-				<SwiperSlide className='slide'>
-					<div className='overlay' />
-				</SwiperSlide>
-				<SwiperSlide className='slide'>
-					<div className='overlay' />
-				</SwiperSlide>
-
-				<div className='max-width'>
-					<div className='hero-text'>
-						<h1>Lorem ipsum dolor</h1>
-						<p>Quem vide tincidunt pri ei, id mea omnium denique.</p>
-						<Link to={routes.contact}>
-							<Button label='Contact us' variant='dark' />
-						</Link>
-					</div>
-				</div>
+				{bannerData.map((item, index) => (
+					<SwiperSlide className='slide' key={index}>
+						<div className='overlay' />
+						{isLoading ? (
+							<div className='loader'>
+								<ClipLoader color='white' />
+							</div>
+						) : (
+							<>
+								<img src={item.ImageUrl} alt='' />
+								<div className='max-width'>
+									<div className='hero-text'>
+										<h1>{item.Title}</h1>
+										<p>{item.Subtitle}</p>
+										<Link to={routes.contact}>
+											<Button type='button' label='Contact us' variant='dark' />
+										</Link>
+									</div>
+								</div>
+							</>
+						)}
+					</SwiperSlide>
+				))}
 			</Swiper>
 		</section>
 	);

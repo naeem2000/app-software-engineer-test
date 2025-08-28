@@ -65,6 +65,7 @@ export default function BottomTextSection() {
 			<div className='button-container'>
 				<Link to={routes.contact}>
 					<Button
+						type='button'
 						className='contact-button'
 						label='Contact us'
 						variant='dark'

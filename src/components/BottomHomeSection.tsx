@@ -17,7 +17,12 @@ export default function BottomHomeSection() {
 						iaculis hendrerit ex et tincidunt. Aenean eu magna ut nisi placerat
 						fringilla in sed diam.
 					</p>
-					<Button className='overlay-button' label='Log in' variant='light' />
+					<Button
+						type='button'
+						className='overlay-button'
+						label='Log in'
+						variant='light'
+					/>
 				</div>
 			</div>
 		</section>

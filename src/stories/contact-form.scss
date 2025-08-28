@@ -1,0 +1,93 @@
+form {
+    max-width: 500px;
+    margin-top: 30px;
+
+    input[type='text'],
+    input[type='email'],
+    input[type='tel'],
+    textarea {
+        width: 100%;
+        background: var(--input-bg);
+        border: 1px solid var(--border);
+        padding: 12px 15px;
+        font-size: 12px;
+        margin-top: 8px;
+
+        &:focus {
+            outline: none;
+        }
+    }
+
+    label {
+        font-size: 12px;
+    }
+
+    .name-email {
+        display: flex;
+        gap: 20px;
+
+        div {
+            width: 100%;
+        }
+    }
+
+    .phone-number {
+        >div {
+            margin-top: 20px;
+        }
+
+        button {
+            width: 100%;
+            margin-top: 20px;
+        }
+    }
+
+    .message {
+        margin-top: 23px;
+
+        >div {
+            display: flex;
+            justify-content: space-between;
+
+            span {
+                font-size: 9px;
+                color: var(--grey);
+            }
+        }
+    }
+
+    .address-checkbox {
+        display: flex;
+        align-items: center;
+        margin: 20px 0px;
+        gap: 13px;
+
+        input[type='checkbox'] {
+            accent-color: var(--blue) !important;
+            width: 20px;
+            height: 20px;
+        }
+
+        label {
+            font-size: 12px;
+        }
+    }
+
+    .address {
+        margin-top: 20px;
+        margin-bottom: 30px;
+
+        >div {
+            display: flex;
+            gap: 20px;
+
+            >div:nth-child(2) {
+                width: 50%;
+            }
+        }
+    }
+
+    button {
+        width: 100%;
+    }
+}

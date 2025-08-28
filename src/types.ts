@@ -8,3 +8,9 @@ export type Routes = {
 	about: string;
 	contact: string;
 };
+
+export type BannerData = {
+	Title: 'string';
+	Subtitle: 'string';
+	ImageUrl: 'string';
+};

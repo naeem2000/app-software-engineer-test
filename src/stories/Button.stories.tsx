@@ -14,8 +14,9 @@ type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
 	args: {
-		label: "tester",
-		variant: "dark",
+		label: 'tester',
+		variant: 'dark',
 		className: '',
+		type: 'button',
 	},
 };

@@ -1,6 +1,8 @@
 import { routes } from '../utils/routes';
 import { NavLinks } from '../types';
 
+export const baseUrl: string = 'https://interview-assessment.api.avamae.co.uk';
+
 export const navLinks: NavLinks = [
 	{
 		link: 'Home',
