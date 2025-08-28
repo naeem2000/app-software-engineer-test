@@ -1,4 +1,5 @@
 import { useCallback, useState } from 'react';
+import { ContactFormTypes } from '../types';
 import Button from './Button';
 import './contact-form.scss';
 
@@ -6,9 +7,40 @@ export default function ContactForm() {
 	const [isAddressEnabled, setIsAddressEnabled] = useState<boolean>(false);
 	const [phoneNumberCount, setPhoneNumberCount] = useState<number>(1);
 
+	const [contactData, setContactData] = useState<ContactFormTypes>({
+		FullName: '',
+		EmailAddress: '',
+		PhoneNumbers: [],
+		Message: '',
+		bIncludeAddressDetails: false,
+		AddressDetails: {
+			AddressLine1: '',
+			AddressLine2: '',
+			CityTown: '',
+			StateCounty: '',
+			Postcode: '',
+			Country: '',
+		},
+	});
+
+	const onSubmit = useCallback(async () => {
+		console.log(contactData);
+	}, [contactData]);
+
 	const addPhoneNumber = useCallback(() => {
 		setPhoneNumberCount((prev) => prev + 1);
 	}, []);
+
+	const toggleCheckbox = useCallback(
+		(e: React.ChangeEvent<HTMLInputElement>) => {
+			setIsAddressEnabled(e.target.checked);
+			setContactData({
+				...contactData,
+				bIncludeAddressDetails: e.target.checked,
+			});
+		},
+		[contactData]
+	);
 
 	const PhoneNumber = ({ index }: { index: number }) => {
 		return (
@@ -23,21 +55,42 @@ export default function ContactForm() {
 					inputMode='numeric'
 					id={`phone-number-${index}`}
 					name={`phone-number-${index}`}
+					value={contactData.PhoneNumbers[index]}
+					onChange={(e) =>
+						setContactData({ ...contactData, PhoneNumbers: [e.target.value] })
+					}
 				/>
 			</div>
 		);
 	};
 
 	return (
-		<form>
+		<form onSubmit={onSubmit}>
 			<div className='name-email'>
 				<div>
 					<label htmlFor='name'>Full name</label>
-					<input required type='text' id='name' />
+					<input
+						required
+						type='text'
+						id='name'
+						value={contactData.FullName}
+						onChange={(e) =>
+							setContactData({ ...contactData, FullName: e.target.value })
+						}
+					/>
 				</div>
 				<div>
 					<label htmlFor='email'>Email address</label>
-					<input required type='email' name='' id='email' />
+					<input
+						required
+						type='email'
+						name='email'
+						id='email'
+						value={contactData.EmailAddress}
+						onChange={(e) =>
+							setContactData({ ...contactData, EmailAddress: e.target.value })
+						}
+					/>
 				</div>
 			</div>
 			<div className='phone-number'>
@@ -59,8 +112,13 @@ export default function ContactForm() {
 				<textarea
 					required
 					placeholder='Type your text here'
-					name=''
+					name='message'
 					id='message'
+					maxLength={1000}
+					value={contactData.Message}
+					onChange={(e) =>
+						setContactData({ ...contactData, Message: e.target.value })
+					}
 				/>
 			</div>
 			<div className='address-checkbox'>
@@ -68,7 +126,7 @@ export default function ContactForm() {
 					type='checkbox'
 					name=''
 					id='address-checkbox'
-					onChange={(e) => setIsAddressEnabled(e.target.checked)}
+					onChange={(e) => toggleCheckbox(e)}
 				/>
 				<label htmlFor='address-checkbox'>Add address details</label>
 			</div>
@@ -77,21 +135,77 @@ export default function ContactForm() {
 					<div>
 						<div>
 							<label htmlFor='address-line-1'>Address line 1</label>
-							<input type='text' name='address 1' id='address-line-1' />
+							<input
+								type='text'
+								name='address 1'
+								id='address-line-1'
+								value={contactData.AddressDetails.AddressLine1}
+								onChange={(e) =>
+									setContactData({
+										...contactData,
+										AddressDetails: {
+											...contactData.AddressDetails,
+											AddressLine1: e.target.value,
+										},
+									})
+								}
+							/>
 						</div>
 						<div>
-							<label htmlFor='address-line-1'>Address line 2 - optional</label>
-							<input type='text' name='address 2' id='address-line-1' />
+							<label htmlFor='address-line-2'>Address line 2 - optional</label>
+							<input
+								type='text'
+								name='address 2'
+								id='address-line-2'
+								value={contactData.AddressDetails.AddressLine2}
+								onChange={(e) =>
+									setContactData({
+										...contactData,
+										AddressDetails: {
+											...contactData.AddressDetails,
+											AddressLine2: e.target.value,
+										},
+									})
+								}
+							/>
 						</div>
 					</div>
 					<div className='state-details'>
 						<div>
 							<label htmlFor='city/town'>City/Town</label>
-							<input type='text' name='city/town' id='city/town' />
+							<input
+								type='text'
+								name='city/town'
+								id='city/town'
+								value={contactData.AddressDetails.CityTown}
+								onChange={(e) =>
+									setContactData({
+										...contactData,
+										AddressDetails: {
+											...contactData.AddressDetails,
+											CityTown: e.target.value,
+										},
+									})
+								}
+							/>
 						</div>
 						<div>
 							<label htmlFor='state/county'>State/County</label>
-							<input type='text' name='state/county' id='state/county' />
+							<input
+								type='text'
+								name='state/county'
+								id='state/county'
+								value={contactData.AddressDetails.StateCounty}
+								onChange={(e) =>
+									setContactData({
+										...contactData,
+										AddressDetails: {
+											...contactData.AddressDetails,
+											StateCounty: e.target.value,
+										},
+									})
+								}
+							/>
 						</div>
 						<div>
 							<label htmlFor='postcode'>Postcode</label>
@@ -101,11 +215,35 @@ export default function ContactForm() {
 								inputMode='numeric'
 								name='postcode'
 								id='postcode'
+								value={contactData.AddressDetails.Postcode}
+								onChange={(e) =>
+									setContactData({
+										...contactData,
+										AddressDetails: {
+											...contactData.AddressDetails,
+											Postcode: e.target.value,
+										},
+									})
+								}
 							/>
 						</div>
 						<div>
 							<label htmlFor='Country'>Country</label>
-							<input type='text' name='country' id='Country' />
+							<input
+								type='text'
+								name='country'
+								id='Country'
+								value={contactData.AddressDetails.Country}
+								onChange={(e) =>
+									setContactData({
+										...contactData,
+										AddressDetails: {
+											...contactData.AddressDetails,
+											Country: e.target.value,
+										},
+									})
+								}
+							/>
 						</div>
 					</div>
 				</div>

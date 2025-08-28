@@ -44,7 +44,7 @@ export default function Hero() {
 				{bannerData.map((item, index) => (
 					<SwiperSlide className='slide' key={index}>
 						<div className='overlay' />
-						{isLoading ? (
+						{isLoading || bannerData.length < 0 ? (
 							<div className='loader'>
 								<ClipLoader color='white' />
 							</div>

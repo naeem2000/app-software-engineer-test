@@ -10,3 +10,5 @@ export const getBannerData = async () => {
 		console.error('Error fetching banner data:', e);
 	}
 };
+
+export const submitForm = async () => {};
