@@ -1,16 +1,17 @@
+import { routes } from '../utils/routes';
 import { NavLinks } from '../types';
 
 export const navLinks: NavLinks = [
 	{
 		link: 'Home',
-		href: '/',
+		href: routes.home,
 	},
 	{
 		link: 'About us',
-		href: '/about-us',
+		href: routes.about,
 	},
 	{
 		link: 'Contact us',
-		href: '/contact-us',
+		href: routes.contact,
 	},
 ];

@@ -6,6 +6,7 @@ import 'swiper/css/pagination';
 import 'swiper/css';
 import Button from '../stories/Button';
 import { Link } from 'react-router-dom';
+import { routes } from '../utils/routes';
 export default function Hero() {
 	return (
 		<section className='hero'>
@@ -28,7 +29,7 @@ export default function Hero() {
 					<div className='hero-text'>
 						<h1>Lorem ipsum dolor</h1>
 						<p>Quem vide tincidunt pri ei, id mea omnium denique.</p>
-						<Link to='/contact-us'>
+						<Link to={routes.contact}>
 							<Button label='Contact us' variant='dark' />
 						</Link>
 					</div>

@@ -34,6 +34,7 @@
             background-position: 50% 15%;
             background-size: cover;
             background-repeat: no-repeat;
+            cursor: grab;
 
             &:last-child {
                 background-image: url('../assets/Img_003.jpg');
@@ -118,19 +119,13 @@
         gap: 60px;
 
         @media screen and (max-width: 1024px) {
-            flex-direction: column;
+            flex-direction: column-reverse;
             justify-content: center;
             align-items: center;
             gap: 20px;
         }
 
         div {
-            order: 1;
-
-            @media screen and (max-width: 1024px) {
-                order: 2;
-            }
-
             h2 {
                 color: var(--black);
                 font-weight: 600;
@@ -166,10 +161,6 @@
             width: 100%;
             height: 300px;
             order: 2;
-
-            @media screen and (max-width: 1024px) {
-                order: 1;
-            }
         }
     }
 }
@@ -222,6 +213,64 @@
 }
 
 .bottom-text-section {
+    div {
+        text-align: center;
 
-    h2 {}
+        h2 {
+            font-weight: 600;
+            font-size: 20px;
+            margin-bottom: 10px;
+        }
+
+        p {
+            font-weight: 600;
+            font-size: 16px;
+        }
+    }
+
+    .text-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        place-content: center;
+        gap: 60px;
+        margin-top: 30px;
+
+        div {
+            p {
+                font-size: 12px;
+                text-align: left;
+                line-height: 20px;
+                font-weight: normal;
+            }
+
+            &:first-child {
+                p:first-child {
+                    font-weight: bold;
+                }
+            }
+        }
+
+        @media screen and (max-width: 1024px) {
+            grid-template-columns: 1fr;
+            gap: 30px;
+        }
+    }
+
+    .button-container {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        margin-top: 30px;
+
+        @media screen and (max-width: 720px) {
+            a {
+                width: 100%;
+
+                button {
+                    width: 100%;
+                }
+            }
+        }
+    }
 }
