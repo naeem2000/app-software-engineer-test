@@ -1,0 +1,27 @@
+button {
+    border: none;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 13px;
+    line-height: 16px;
+    padding: 11px 24px;
+    border-radius: 3px;
+}
+
+.dark {
+    background: var(--blue) 0% 0% no-repeat padding-box;
+    color: var(--white);
+
+    &:hover {
+        background: var(--dark-button-hover)
+    }
+}
+
+.light {
+    background: var(--light-blue) 0% 0% no-repeat padding-box;
+    color: var(--blue);
+
+    &:hover {
+        background: var(--light-button-hover)
+    }
+}
