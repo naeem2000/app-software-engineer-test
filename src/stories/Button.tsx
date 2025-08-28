@@ -1,5 +1,6 @@
-import './button.scss';
+import { ClipLoader } from 'react-spinners';
 import Icon_Submit from '../assets/icons/Icon_Submit.svg';
+import './button.scss';
 
 interface Props {
 	label: string;
@@ -8,12 +9,14 @@ interface Props {
 	onClick?: () => void;
 	type: 'submit' | 'button' | 'reset';
 	icon?: boolean;
+	isLoading?: boolean;
 }
 
 export default function Button({
-	variant,
+	isLoading,
 	className,
 	onClick,
+	variant,
 	label,
 	type,
 	icon,
@@ -22,11 +25,19 @@ export default function Button({
 	return icon ? (
 		<button
 			type={type}
-			className={`icon-button ${className} ${variantClass}`}
+			className={`${
+				isLoading ? '' : 'icon-button'
+			} ${className} ${variantClass}`}
 			onClick={onClick}
 		>
-			<span>{label}</span>
-			<img src={Icon_Submit} alt='submit' />
+			{isLoading ? (
+				<ClipLoader size={20} color='white' />
+			) : (
+				<>
+					<span>{label}</span>
+					<img src={Icon_Submit} alt='submit' />
+				</>
+			)}
 		</button>
 	) : (
 		<button

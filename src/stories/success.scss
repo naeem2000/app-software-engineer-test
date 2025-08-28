@@ -1,0 +1,38 @@
+.success {
+    max-width: 500px;
+    margin-top: 30px;
+    width: 100%;
+    background: var(--green);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    padding: 30px;
+
+    div {
+        background: var(--dark-green);
+        display: flex;
+        justify-content: center;
+        align-content: center;
+        border-radius: 100%;
+        padding: 10px;
+
+        img {
+            width: 20px;
+            height: 20px;
+        }
+    }
+
+    p {
+        font-size: 12px;
+        font-weight: bold !important;
+        margin-top: 20px;
+        margin-bottom: 10px;
+
+        &:nth-child(3) {
+            color: var(--grey);
+            font-weight: normal !important;
+            margin: 0;
+        }
+    }
+}

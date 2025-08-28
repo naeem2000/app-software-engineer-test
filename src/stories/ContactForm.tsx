@@ -1,16 +1,20 @@
 import { useCallback, useState } from 'react';
 import { ContactFormTypes } from '../types';
+import { submitForm } from '../utils/api';
 import Button from './Button';
 import './contact-form.scss';
+import React from 'react';
+import Success from './Success';
 
 export default function ContactForm() {
 	const [isAddressEnabled, setIsAddressEnabled] = useState<boolean>(false);
-	const [phoneNumberCount, setPhoneNumberCount] = useState<number>(1);
-
+	const [phoneKeys, setPhoneKeys] = useState<string[]>([crypto.randomUUID()]);
+	const [isSuccessful, setIsSuccessful] = useState<boolean>(false);
+	const [isLoading, setIsLoading] = useState<boolean>(false);
 	const [contactData, setContactData] = useState<ContactFormTypes>({
 		FullName: '',
 		EmailAddress: '',
-		PhoneNumbers: [],
+		PhoneNumbers: [''],
 		Message: '',
 		bIncludeAddressDetails: false,
 		AddressDetails: {
@@ -23,13 +27,39 @@ export default function ContactForm() {
 		},
 	});
 
-	const onSubmit = useCallback(async () => {
-		console.log(contactData);
-	}, [contactData]);
+	const onSubmit = useCallback(
+		async (e: React.FormEvent<HTMLFormElement>) => {
+			e.preventDefault();
+			setIsLoading(true);
+			try {
+				const postForm = await submitForm(contactData);
+				if (postForm.Status === '1') {
+					setIsSuccessful(true);
+				}
+				setIsLoading(false);
+				setContactData({
+					FullName: '',
+					EmailAddress: '',
+					PhoneNumbers: [''],
+					Message: '',
+					bIncludeAddressDetails: false,
+					AddressDetails: {
+						AddressLine1: '',
+						AddressLine2: '',
+						CityTown: '',
+						StateCounty: '',
+						Postcode: '',
+						Country: '',
+					},
+				});
+			} catch (error) {
+				setIsLoading(false);
 
-	const addPhoneNumber = useCallback(() => {
-		setPhoneNumberCount((prev) => prev + 1);
-	}, []);
+				console.error('Error submitting form:', error);
+			}
+		},
+		[contactData]
+	);
 
 	const toggleCheckbox = useCallback(
 		(e: React.ChangeEvent<HTMLInputElement>) => {
@@ -42,28 +72,17 @@ export default function ContactForm() {
 		[contactData]
 	);
 
-	const PhoneNumber = ({ index }: { index: number }) => {
-		return (
-			<div>
-				<label htmlFor={`phone-number-${index}`}>
-					Phone number {index < 9 && '0'}
-					{index + 1} - optional
-				</label>
-				<input
-					type='tel'
-					pattern='[0-9]*'
-					inputMode='numeric'
-					id={`phone-number-${index}`}
-					name={`phone-number-${index}`}
-					value={contactData.PhoneNumbers[index]}
-					onChange={(e) =>
-						setContactData({ ...contactData, PhoneNumbers: [e.target.value] })
-					}
-				/>
-			</div>
-		);
-	};
+	const addPhoneNumber = useCallback(() => {
+		setContactData((prev) => ({
+			...prev,
+			PhoneNumbers: [...prev.PhoneNumbers, ''],
+		}));
+		setPhoneKeys((prev) => [...prev, crypto.randomUUID()]);
+	}, []);
 
+	if (isSuccessful) {
+		return <Success />;
+	}
 	return (
 		<form onSubmit={onSubmit}>
 			<div className='name-email'>
@@ -94,8 +113,28 @@ export default function ContactForm() {
 				</div>
 			</div>
 			<div className='phone-number'>
-				{Array.from({ length: phoneNumberCount }).map((_, index) => (
-					<PhoneNumber key={index} index={index} />
+				{contactData.PhoneNumbers.map((value, index) => (
+					<div key={phoneKeys[index]}>
+						<label htmlFor={`phone-number-${index}`}>
+							Phone number {index < 9 && '0'}
+							{index + 1} - optional
+						</label>
+						<input
+							type='tel'
+							pattern='[0-9]*'
+							inputMode='numeric'
+							id={`phone-number-${index}`}
+							name={`phone-number-${index}`}
+							value={value}
+							onChange={(e) =>
+								setContactData((prev) => {
+									const newNumbers = [...prev.PhoneNumbers];
+									newNumbers[index] = e.target.value;
+									return { ...prev, PhoneNumbers: newNumbers };
+								})
+							}
+						/>
+					</div>
 				))}
 				<Button
 					type='button'
@@ -104,6 +143,7 @@ export default function ContactForm() {
 					onClick={addPhoneNumber}
 				/>
 			</div>
+
 			<div className='message'>
 				<div>
 					<label htmlFor='message'>Message</label>
@@ -211,8 +251,6 @@ export default function ContactForm() {
 							<label htmlFor='postcode'>Postcode</label>
 							<input
 								type='text'
-								pattern='[0-9]*'
-								inputMode='numeric'
 								name='postcode'
 								id='postcode'
 								value={contactData.AddressDetails.Postcode}
@@ -221,7 +259,7 @@ export default function ContactForm() {
 										...contactData,
 										AddressDetails: {
 											...contactData.AddressDetails,
-											Postcode: e.target.value,
+											Postcode: e.target.value.toString(),
 										},
 									})
 								}
@@ -248,7 +286,13 @@ export default function ContactForm() {
 					</div>
 				</div>
 			)}
-			<Button icon label='Submit' variant='dark' type='submit' />
+			<Button
+				isLoading={isLoading}
+				icon
+				label='Submit'
+				variant='dark'
+				type='submit'
+			/>
 		</form>
 	);
 }
