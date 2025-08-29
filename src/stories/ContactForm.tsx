@@ -144,7 +144,6 @@ export default function ContactForm() {
 					onClick={addPhoneNumber}
 				/>
 			</div>
-
 			<div className='message'>
 				<div>
 					<label htmlFor='message'>Message</label>
