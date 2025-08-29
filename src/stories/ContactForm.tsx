@@ -80,7 +80,7 @@ export default function ContactForm() {
 		setPhoneKeys((prev) => [...prev, crypto.randomUUID()]);
 	}, []);
 
-	if (!isSuccessful) {
+	if (isSuccessful) {
 		return <Success />;
 	}
 
