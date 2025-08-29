@@ -1,16 +1,16 @@
 import { Autoplay, Navigation, Pagination } from 'swiper/modules';
+import { useCallback, useEffect, useState } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
+import { getBannerData } from '../utils/api';
+import { ClipLoader } from 'react-spinners';
 import { routes } from '../utils/routes';
 import { Link } from 'react-router-dom';
 import Button from '../stories/Button';
-import { useCallback, useEffect, useState } from 'react';
+import { BannerData } from '../types';
 import 'swiper/css/pagination';
 import 'swiper/css/navigation';
 import './homeStyles.scss';
 import 'swiper/css';
-import { BannerData } from '../types';
-import { ClipLoader } from 'react-spinners';
-import { getBannerData } from '../utils/api';
 
 export default function Hero() {
 	const [bannerData, setBannerData] = useState<BannerData[]>([]);
@@ -23,7 +23,7 @@ export default function Hero() {
 			setIsLoading(false);
 		} catch (e) {
 			setIsLoading(false);
-			console.error(e);
+			console.error('Error loading banner details', e);
 		}
 	}, []);
 

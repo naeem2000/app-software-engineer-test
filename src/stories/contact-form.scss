@@ -2,6 +2,10 @@ form {
     max-width: 500px;
     margin-top: 30px;
 
+    @media screen and (max-width: 1024px) {
+        max-width: 100%;
+    }
+
     input[type='text'],
     input[type='email'],
     input[type='tel'],
@@ -28,6 +32,10 @@ form {
 
         div {
             width: 100%;
+        }
+
+        @media screen and (max-width: 720px) {
+            flex-direction: column;
         }
     }
 
@@ -77,12 +85,33 @@ form {
         margin-top: 20px;
         margin-bottom: 30px;
 
-        >div {
+        .address-row {
             display: flex;
             gap: 20px;
 
-            >div:nth-child(2) {
-                width: 50%;
+            div {
+                flex: 1;
+            }
+
+            input {
+                width: 100%;
+
+            }
+
+            @media screen and (max-width: 720px) {
+                flex-direction: column;
+            }
+        }
+
+        .state-details {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            place-content: center;
+            margin-top: 20px;
+            gap: 20px;
+
+            @media screen and (max-width: 720px) {
+                grid-template-columns: repeat(2, 1fr);
             }
         }
     }

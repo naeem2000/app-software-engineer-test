@@ -1,5 +1,5 @@
-import './success.scss';
 import Icon_Valid from '../assets/icons/Icon_Valid.svg';
+import './success.scss';
 
 export default function Success() {
 	return (

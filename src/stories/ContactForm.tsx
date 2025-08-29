@@ -1,14 +1,14 @@
 import { useCallback, useState } from 'react';
 import { ContactFormTypes } from '../types';
 import { submitForm } from '../utils/api';
+import Success from './Success';
 import Button from './Button';
 import './contact-form.scss';
 import React from 'react';
-import Success from './Success';
 
 export default function ContactForm() {
-	const [isAddressEnabled, setIsAddressEnabled] = useState<boolean>(false);
 	const [phoneKeys, setPhoneKeys] = useState<string[]>([crypto.randomUUID()]);
+	const [isAddressEnabled, setIsAddressEnabled] = useState<boolean>(false);
 	const [isSuccessful, setIsSuccessful] = useState<boolean>(false);
 	const [isLoading, setIsLoading] = useState<boolean>(false);
 	const [contactData, setContactData] = useState<ContactFormTypes>({
@@ -80,9 +80,10 @@ export default function ContactForm() {
 		setPhoneKeys((prev) => [...prev, crypto.randomUUID()]);
 	}, []);
 
-	if (isSuccessful) {
+	if (!isSuccessful) {
 		return <Success />;
 	}
+
 	return (
 		<form onSubmit={onSubmit}>
 			<div className='name-email'>
@@ -172,10 +173,11 @@ export default function ContactForm() {
 			</div>
 			{isAddressEnabled && (
 				<div className='address'>
-					<div>
+					<div className='address-row'>
 						<div>
 							<label htmlFor='address-line-1'>Address line 1</label>
 							<input
+								required
 								type='text'
 								name='address 1'
 								id='address-line-1'
@@ -194,6 +196,7 @@ export default function ContactForm() {
 						<div>
 							<label htmlFor='address-line-2'>Address line 2 - optional</label>
 							<input
+								required
 								type='text'
 								name='address 2'
 								id='address-line-2'
@@ -214,6 +217,7 @@ export default function ContactForm() {
 						<div>
 							<label htmlFor='city/town'>City/Town</label>
 							<input
+								required
 								type='text'
 								name='city/town'
 								id='city/town'
@@ -232,6 +236,7 @@ export default function ContactForm() {
 						<div>
 							<label htmlFor='state/county'>State/County</label>
 							<input
+								required
 								type='text'
 								name='state/county'
 								id='state/county'
@@ -250,6 +255,7 @@ export default function ContactForm() {
 						<div>
 							<label htmlFor='postcode'>Postcode</label>
 							<input
+								required
 								type='text'
 								name='postcode'
 								id='postcode'
@@ -268,6 +274,7 @@ export default function ContactForm() {
 						<div>
 							<label htmlFor='Country'>Country</label>
 							<input
+								required
 								type='text'
 								name='country'
 								id='Country'

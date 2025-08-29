@@ -17,4 +17,10 @@
         font-weight: 600;
         max-width: 500px;
     }
+
+    @media screen and (max-width: 1024px) {
+        background: none;
+        padding-top: 40px;
+        padding-bottom: 40px;
+    }
 }

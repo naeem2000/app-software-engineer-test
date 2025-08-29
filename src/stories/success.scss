@@ -24,7 +24,7 @@
     }
 
     p {
-        font-size: 12px;
+        font-size: 12px !important;
         font-weight: bold !important;
         margin-top: 20px;
         margin-bottom: 10px;
@@ -33,6 +33,7 @@
             color: var(--grey);
             font-weight: normal !important;
             margin: 0;
+            font-size: 12px;
         }
     }
 }

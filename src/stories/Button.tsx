@@ -1,5 +1,5 @@
-import { ClipLoader } from 'react-spinners';
 import Icon_Submit from '../assets/icons/Icon_Submit.svg';
+import { ClipLoader } from 'react-spinners';
 import './button.scss';
 
 interface Props {
