@@ -1,0 +1,26 @@
+.contact-us {
+    padding-top: 60px;
+    background-image: url('../../assets/Img_Contact.png');
+    background-repeat: no-repeat;
+    background-position: right;
+    min-height: 85vh;
+    padding-bottom: 60px;
+
+    h2 {
+        font-weight: 600;
+        font-size: 30px;
+        margin-bottom: 15px;
+    }
+
+    p {
+        font-size: 16px;
+        font-weight: 600;
+        max-width: 500px;
+    }
+
+    @media screen and (max-width: 1024px) {
+        background: none;
+        padding-top: 40px;
+        padding-bottom: 40px;
+    }
+}

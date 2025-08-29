@@ -29,7 +29,7 @@ export default function Nav() {
 								);
 							})}
 						</ul>
-						<Button variant='light' label='Sign in' />
+						<Button type='button' variant='light' label='Sign in' />
 					</div>
 				</div>
 			</nav>

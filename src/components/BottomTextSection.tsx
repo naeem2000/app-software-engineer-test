@@ -1,7 +1,7 @@
+import { routes } from '../utils/routes';
 import { Link } from 'react-router-dom';
 import Button from '../stories/Button';
 import './homeStyles.scss';
-import { routes } from '../utils/routes';
 
 export default function BottomTextSection() {
 	return (
@@ -65,6 +65,7 @@ export default function BottomTextSection() {
 			<div className='button-container'>
 				<Link to={routes.contact}>
 					<Button
+						type='button'
 						className='contact-button'
 						label='Contact us'
 						variant='dark'

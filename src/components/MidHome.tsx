@@ -29,6 +29,7 @@ export default function MidHome() {
 						</li>
 					</ul>
 					<Button
+						type='button'
 						className='mid-home-button'
 						label='Learn more'
 						variant='dark'
